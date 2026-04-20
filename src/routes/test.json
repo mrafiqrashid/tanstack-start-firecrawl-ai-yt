@@ -1,0 +1,224 @@
+{
+  "site": {
+    "list": {
+      "pageTitle": "Site Management",
+      "pageDescription": "Manage sites and their information",
+      "buttons": {
+        "add": "Add Site",
+        "edit": "Edit",
+        "delete": "Delete",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "fields": {
+        "id": "ID",
+        "siteName": "Site Name",
+        "location": "Location",
+        "type": "Type",
+        "tags": "Tags",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "messages": {
+        "addSuccess": "Site added successfully",
+        "updateSuccess": "Site updated successfully",
+        "deleteSuccess": "Site deleted successfully",
+        "error": "An error occurred. Please try again."
+      }
+    },
+    "detail": {
+      "siteId": "Site ID",
+      "totalProperties": "Total Properties",
+      "totalUnits": "Total Units",
+      "occupancyRate": "Occupancy Rate",
+      "siteStatus": "Site Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "profile": "Profile",
+      "properties": "Properties",
+      "notes": "Notes",
+      "profileTab": {
+        "siteInformation": "Site Information",
+        "siteInformationDescription": "Site details and fundamental property information",
+        "sitePhotos": "Site Photos",
+        "visualDocumentation": "Visual Documentation",
+        "description": "Description",
+        "siteName": "Site Name",
+        "siteType": "Site Type",
+        "address": "Address",
+        "cpcDate": "CPC Date",
+        "website": "Website",
+        "tags": "Tags",
+
+        "management&ContactInformation": "Management & Contact Information",
+        "management&ContactInformationDescription": "Developer, management, and contact details",
+        "managementInformation": "Management Information",
+        "managementInformationDescription": "Management company and operational contacts",
+        "companyName": "Company Name",
+        "registrationNo": "Registration No",
+        "addressManagement": "Address",
+        "phoneNo": "Phone No",
+        "email": "Email",
+
+        "developerInformation": "Developer Information",
+        "developerInformationDescription": "Project developer and primary contact details",
+        "companyNameDeveloper": "Company Name",
+        "phoneNoDeveloper": "Phone No",
+        "emailDeveloper": "Email",
+
+        "map&Location": "Map & Location",
+        "map&LocationDescription": "Geographical location and map view",
+        "siteLocation": "Site Location",
+        "siteLocationDescription": "Geographical location of the site",
+
+        "attachmentFile": "Attachment File",
+        "attachmentFileDescription": "Upload and manage site-related documents",
+        "accessInformation": "Access Information",
+        "accessInformationDescription": "Operating hours, visitation rules, and access guidelines",
+        "operationHours": "Operation Hours",
+        "operationHoursDescription": "Daily operating hours for the site",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "closed": "Closed",
+
+        "socialMedia": "Social Media",
+        "socialMediaDescription": "Follow us on social platforms and stay connected"
+      },
+      "propertiesTab": {
+        "highrise": "Highrise",
+        "landed": "Landed",
+        "active": "Active",
+        "inactive": "Inactive",
+        "levels": "Levels",
+        "units": "Units",
+        "available": "Available",
+        "users": "Users",
+        "occupancy": "Occupancy",
+        "activation": "Activation"
+      }
+    },
+    "form": {
+      "addSite": "Add Site",
+      "addSiteDescription": "Create a new site with comprehensive configuration options",
+      "editSite": "Edit Site",
+      "editSiteDescription": "Update site configuration and settings for Aurora Residensi",
+
+      "siteInformationSection": {
+        "siteInformation": "Site Information",
+        "siteInformationDescription": "Configure basic site details and location information for property management",
+        "siteId": "Site ID",
+        "siteType": "Site Type",
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "siteName": "Site Name",
+        "abbreviation": "Abbreviation",
+        "country": "Country",
+        "timezone": "Timezone",
+        "address": "Address",
+        "city": "City",
+        "state": "State",
+        "postalCode": "Postal Code",
+        "cpcDate": "CPC Date",
+        "description": "Description",
+        "website": "Website",
+        "tags": "Tags",
+        "tagsPlaceholder": "Add a tag...",
+
+        "siteImages": "Site Images",
+        "siteImagesDescription": "Upload up to 5 images to represent this site (optional). Recommended size: 1290 x 900px",
+        "uploadSiteImages": "Upload Site Images",
+        "uploadSiteImagesDescription1": "Drag and drop or click to browse",
+        "uploadSiteImagesDescription2": "Up to",
+        "uploadSiteImagesDescription3": "more",
+        "uploadSiteImagesDescription4": "support: JPEG, PNG, BMP, GIF, JPG, HEIC, HEIF",
+        "uploadSiteImagesDescription5": "Max file size: 5MB each",
+
+        "siteAttachments": "Site Attachments",
+        "siteAttachmentsDescription": "Upload up to 5 documents or files related to this site (optional)",
+        "uploadSiteAttachments": "Upload Site Attachments",
+        "uploadSiteAttachmentsDescription1": "Drag and drop or click to browse",
+        "uploadSiteAttachmentsDescription2": "Up to",
+        "uploadSiteAttachmentsDescription3": "more",
+        "uploadSiteAttachmentsDescription4": "support: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, TXT",
+        "uploadSiteAttachmentsDescription5": "Max file size: 10MB each"
+      },
+
+      "managementInformationSection": {
+        "managementInformation": "Management Information",
+        "managementInformationDescription": "Configure the property management company details and contact information.",
+        "companyName": "Company Name",
+        "registrationNo": "Registration No",
+        "sameAsSiteAddress": "Same as site address",
+        "address": "Address",
+        "city": "City",
+        "state": "State",
+        "postcode": "Postcode",
+        "phoneNo": "Phone No",
+        "email": "Email"
+      },
+
+      "developerInformationSection": {
+        "developerInformation": "Developer Information",
+        "developerInformationDescription": "Configure the developer company details if different from property management.",
+        "companyName": "Company Name",
+        "email": "Email"
+      },
+
+      "operatingHoursSection": {
+        "operationHours": "Operating Hours",
+        "operationHoursDescription": "Configure operation hours and access control settings for site security.",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "closed": "Closed",
+        "open": "Open",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "addSlot": "Add Slot",
+        "selectTime": "Select Time",
+        "hour": "Hour",
+        "min": "Min",
+        "period": "Period",
+
+        "notes": "Notes",
+        "notesDescription": "Notes and important information about the operating hours"
+      },
+
+      "socialMediaLinksSection": {
+        "socialMedia": "Social Media Links",
+        "socialMediaDescription": "Configure social media presence and sharing options for public engagement."
+      },
+
+      "buttons": {
+        "next": "Next",
+        "create": "Create",
+        "creating": "Creating...",
+        "save": "Save",
+        "saving": "Saving...",
+        "cancel": "Cancel"
+      },
+      "fields": {
+        "name": "Site Name",
+        "code": "Site Code",
+        "address": "Address",
+        "city": "City",
+        "state": "State",
+        "country": "Country",
+        "postalCode": "Postal Code"
+      },
+      "messages": {
+        "saveSuccess": "Site saved successfully",
+        "error": "An error occurred. Please try again."
+      }
+    }
+  }
+}
