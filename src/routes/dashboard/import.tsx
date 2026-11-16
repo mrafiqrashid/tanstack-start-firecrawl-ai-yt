@@ -1,3 +1,10 @@
+import { useForm } from '@tanstack/react-form'
+import { createFileRoute } from '@tanstack/react-router'
+import { Globe, LinkIcon, Loader2 } from 'lucide-react'
+import { useState, useTransition } from 'react'
+import { toast } from 'sonner'
+import type {SearchResultWeb} from '@mendable/firecrawl-js';
+import type { BulkScrapeProgress} from '@/data/items';
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -5,16 +12,12 @@ import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field
 import { Input } from '@/components/ui/input'
 import { Progress } from '@/components/ui/progress'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { BulkScrapeProgress, bulkScrapeUrlsFn, mapUrlFn, scrapeUrlFn } from '@/data/items'
+import { bulkScrapeUrlsFn, mapUrlFn, scrapeUrlFn } from '@/data/items'
 import { bulkImportSchema, importSchema } from '@/schemas/import'
-import { type SearchResultWeb } from '@mendable/firecrawl-js'
-import { useForm } from '@tanstack/react-form'
-import { createFileRoute } from '@tanstack/react-router'
-import { Globe, LinkIcon, Loader2 } from 'lucide-react'
-import { useState, useTransition } from 'react'
-import { toast } from 'sonner'
+import { seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/dashboard/import')({
+  head: () => ({ meta: seo({ title: 'Import', description: 'Import a single URL or bulk-import a whole site into Recall.' }) }),
   component: RouteComponent,
 })
 
@@ -22,7 +25,7 @@ function RouteComponent() {
   const [isPending, startTransition] = useTransition()
   const [isBulkPending, startBulkTransition] = useTransition()
 
-  //bulk import state
+  // bulk import state
   const [discoveredLinks, setDiscoveredLinks] = useState<Array<SearchResultWeb>>([])
   const [selectedUrls, setSelectedUrls] = useState<Set<string>>(new Set())
   const [progress, setProgress] = useState<BulkScrapeProgress | null>(null)

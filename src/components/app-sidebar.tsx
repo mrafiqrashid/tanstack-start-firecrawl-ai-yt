@@ -1,7 +1,11 @@
 "use client"
 
 
-import { NavUser } from "@/components/nav-user"
+import { Link, linkOptions } from "@tanstack/react-router"
+import { AudioLinesIcon, BookOpenIcon, BookmarkIcon, BotIcon, CompassIcon, FrameIcon, GalleryVerticalEndIcon, Import, MapIcon, PieChartIcon, Settings2Icon, TerminalIcon, TerminalSquareIcon } from "lucide-react"
+import { LogoMark } from "./logo"
+import { NavPrimary } from "./nav-primary"
+import type { NavPrimaryProps, NavUserProps } from "@/lib/types"
 import {
   Sidebar,
   SidebarContent,
@@ -12,10 +16,8 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { NavPrimaryProps, NavUserProps } from "@/lib/types"
-import { Link, linkOptions } from "@tanstack/react-router"
-import { AudioLinesIcon, BookmarkIcon, BookOpenIcon, BotIcon, CompassIcon, FrameIcon, GalleryVerticalEndIcon, Import, MapIcon, PieChartIcon, Settings2Icon, TerminalIcon, TerminalSquareIcon } from "lucide-react"
-import { NavPrimary } from "./nav-primary"
+import { NavUser } from "@/components/nav-user"
+import { APP_NAME, APP_TAGLINE } from "@/lib/seo"
 
 // This is sample data.
 const data = {
@@ -209,17 +211,11 @@ export function AppSidebar({ user }: NavUserProps) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size={'lg'} asChild>
-              <Link to='/dashboard' className="felx items-center gap-3">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <BookmarkIcon className="size-4" />
-                </div>
+              <Link to='/dashboard' className="flex items-center gap-3">
+                <LogoMark className="size-8" />
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="font-medium">
-                    Recall
-                  </span>
-                  <span className="text-xs">
-                    Your AI Knowledge Base
-                  </span>
+                  <span className="font-semibold tracking-tight">{APP_NAME}</span>
+                  <span className="text-xs text-muted-foreground">{APP_TAGLINE}</span>
                 </div>
               </Link>
             </SidebarMenuButton>

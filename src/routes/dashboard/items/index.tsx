@@ -1,3 +1,7 @@
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Copy, Inbox } from 'lucide-react'
+import { Suspense, use, useEffect, useState } from 'react'
+import z from 'zod'
 import { Badge } from '@/components/ui/badge'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -8,10 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { getItemFn } from '@/data/items'
 import { ItemStatus } from '@/generated/prisma/enums'
 import { copyToClipboard } from '@/lib/clipboard'
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
-import { Copy, Inbox } from 'lucide-react'
-import { Suspense, use, useEffect, useState } from 'react'
-import z from 'zod'
+import { seo } from '@/lib/seo'
 
 
 const itemsSearchSchema = z.object({
@@ -26,15 +27,7 @@ export const Route = createFileRoute('/dashboard/items/')({
   loader: () => ({ itemPromise: getItemFn() }),
   validateSearch: itemsSearchSchema,
   head: () => ({
-    meta: [
-      {
-        title: 'Saved Items'
-      },
-      {
-        property: 'og:title',
-        content: 'Saved Items'
-      }
-    ]
+    meta: seo({ title: 'Saved items', description: 'Browse, search and filter everything you have saved.' }),
   })
 })
 

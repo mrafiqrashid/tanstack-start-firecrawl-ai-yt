@@ -2,9 +2,10 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
-import { Toaster } from '@/components/ui/sonner'
-import { ThemeProvider } from '@/lib/theme-provider'
 import appCss from '../styles.css?url'
+import { Toaster } from '@/components/ui/sonner'
+import { seo } from '@/lib/seo'
+import { ThemeProvider } from '@/lib/theme-provider'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -16,15 +17,15 @@ export const Route = createRootRoute({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-      {
-        title: 'TanStack Start Starter',
-      },
+      { name: 'theme-color', content: '#EA580C' },
+      ...seo(),
     ],
     links: [
-      {
-        rel: 'stylesheet',
-        href: appCss,
-      },
+      { rel: 'stylesheet', href: appCss },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      { rel: 'icon', href: '/favicon.ico', sizes: '64x64' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      { rel: 'manifest', href: '/manifest.json' },
     ],
   }),
 

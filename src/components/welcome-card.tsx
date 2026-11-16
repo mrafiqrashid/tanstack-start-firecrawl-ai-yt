@@ -1,187 +1,272 @@
-// components/dashboard/welcome-card.jsx
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from '@tanstack/react-router'
 import {
-    ArrowRight,
-    Brain,
-    CheckCircle,
-    Cloud,
-    Database,
-    FormInput,
-    Layout,
-    Server,
-    Shield,
-    Sparkles,
-    Zap
-} from 'lucide-react';
+  ArrowRight,
+  Boxes,
+  Brain,
+  CheckCircle2,
+  Cloud,
+  Database,
+  FormInput,
+  Layout,
+  Link2,
+  Radio,
+  Server,
+  Shield,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from 'lucide-react'
+import { useEffect, useState } from 'react'
+import type { LucideIcon } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { buttonVariants } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
-const techStack = {
-    framework: {
-        name: "TanStack Start",
-        icon: Zap,
-        color: "from-orange-500 to-red-500",
-        description: "SSR, Middleware, Server Functions"
-    },
-    ui: {
-        name: "ShadcnUI",
-        icon: Layout,
-        color: "from-blue-500 to-cyan-500",
-        description: "Polished Component Library"
-    },
-    forms: {
-        name: "TanStack Form + Zod",
-        icon: FormInput,
-        color: "from-purple-500 to-pink-500",
-        description: "Type-safe Validation"
-    },
-    auth: {
-        name: "Better-Auth",
-        icon: Shield,
-        color: "from-green-500 to-emerald-500",
-        description: "Secure Authentication"
-    },
-    database: {
-        name: "Neon (Postgres)",
-        icon: Database,
-        color: "from-teal-500 to-blue-500",
-        description: "Serverless PostgreSQL"
-    },
-    ai: {
-        name: "OpenRouter + Firecrawl",
-        icon: Brain,
-        color: "from-violet-500 to-purple-500",
-        description: "AI Summarization"
-    },
-    deployment: {
-        name: "Vercel",
-        icon: Cloud,
-        color: "from-gray-600 to-gray-800",
-        description: "Optimized Hosting"
-    }
-};
+type Tech = {
+  name: string
+  icon: LucideIcon
+  tint: string
+  description: string
+}
+
+const techStack: Record<string, Tech> = {
+  framework: {
+    name: 'TanStack Start',
+    icon: Zap,
+    tint: 'bg-orange-100 text-orange-600 dark:bg-orange-500/15 dark:text-orange-300',
+    description: 'SSR, middleware & server functions',
+  },
+  ui: {
+    name: 'shadcn/ui',
+    icon: Layout,
+    tint: 'bg-sky-100 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300',
+    description: 'Polished component library',
+  },
+  forms: {
+    name: 'TanStack Form + Zod',
+    icon: FormInput,
+    tint: 'bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-300',
+    description: 'Type-safe validation',
+  },
+  auth: {
+    name: 'Better Auth',
+    icon: Shield,
+    tint: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300',
+    description: 'Secure authentication',
+  },
+  database: {
+    name: 'Neon (Postgres)',
+    icon: Database,
+    tint: 'bg-teal-100 text-teal-600 dark:bg-teal-500/15 dark:text-teal-300',
+    description: 'Serverless PostgreSQL',
+  },
+  ai: {
+    name: 'OpenRouter + Firecrawl',
+    icon: Brain,
+    tint: 'bg-pink-100 text-pink-600 dark:bg-pink-500/15 dark:text-pink-300',
+    description: 'Scraping & AI summaries',
+  },
+  deployment: {
+    name: 'Vercel',
+    icon: Cloud,
+    tint: 'bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300',
+    description: 'Optimized hosting',
+  },
+}
+
+const highlights: Array<{ icon: LucideIcon; value: string; label: string; tint: string }> = [
+  {
+    icon: Boxes,
+    value: String(Object.keys(techStack).length),
+    label: 'Tools in the stack',
+    tint: techStack.framework.tint,
+  },
+  { icon: ShieldCheck, value: '100% TS', label: 'End-to-end types', tint: techStack.ui.tint },
+  { icon: Radio, value: 'Streaming', label: 'AI summaries', tint: techStack.ai.tint },
+  { icon: Cloud, value: 'Vercel', label: 'Edge-ready hosting', tint: techStack.auth.tint },
+]
+
+function useGreeting() {
+  // Start neutral so server and client render the same markup.
+  const [greeting, setGreeting] = useState('Hello 👋')
+
+  useEffect(() => {
+    const hour = new Date().getHours()
+    if (hour < 12) setGreeting('Good morning ☀️')
+    else if (hour < 18) setGreeting('Good afternoon 🌤️')
+    else setGreeting('Good evening 🌙')
+  }, [])
+
+  return greeting
+}
+
+function Mascot({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 160 160" aria-hidden="true" className={className}>
+      {/* shadow */}
+      <ellipse cx="80" cy="146" rx="38" ry="6" className="fill-foreground/10" />
+      {/* body */}
+      <path
+        d="M80 22c34 0 56 26 56 60 0 32-22 52-56 52s-56-20-56-52c0-34 22-60 56-60Z"
+        className="fill-primary"
+      />
+      {/* belly highlight */}
+      <ellipse cx="80" cy="96" rx="30" ry="24" className="fill-white/25" />
+      {/* eyes */}
+      <ellipse cx="62" cy="74" rx="6" ry="8" className="fill-foreground dark:fill-background" />
+      <ellipse cx="98" cy="74" rx="6" ry="8" className="fill-foreground dark:fill-background" />
+      <circle cx="64" cy="71" r="2" className="fill-white" />
+      <circle cx="100" cy="71" r="2" className="fill-white" />
+      {/* blush */}
+      <ellipse cx="50" cy="90" rx="8" ry="4.5" className="fill-pink-300/80" />
+      <ellipse cx="110" cy="90" rx="8" ry="4.5" className="fill-pink-300/80" />
+      {/* smile */}
+      <path
+        d="M72 90q8 8 16 0"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        fill="none"
+        className="stroke-foreground dark:stroke-background"
+      />
+      {/* sprout */}
+      <path d="M80 22c0-8 2-13 6-16" strokeWidth="3" strokeLinecap="round" fill="none" className="stroke-emerald-500" />
+      <path d="M86 8c6-4 13-3 16 1-5 5-12 5-16-1Z" className="fill-emerald-400" />
+      {/* sparkles */}
+      <path d="M136 30l3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" className="fill-amber-400" />
+      <path d="M24 40l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" className="fill-sky-400" />
+    </svg>
+  )
+}
 
 export function WelcomeCard() {
-    return (
-        <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-br from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
-            <CardHeader className="pb-4">
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                            <Sparkles className="w-6 h-6 text-amber-500" />
-                            <Badge variant="secondary" className="bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
-                                Production Ready
-                            </Badge>
-                        </div>
-                        <CardTitle className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
-                            Welcome to Your Dashboard
-                        </CardTitle>
-                        <CardDescription className="text-base max-w-2xl pt-2">
-                            Built a high-performance ETL pipeline using TanStack Start to automate content summarization.
-                            This project leverages end-to-end type safety and server functions to transform raw URLs into
-                            structured, AI-generated insights.
-                        </CardDescription>
-                    </div>
-                    <Button variant="outline" className=" hidden gap-2">
-                        View Documentation
-                        <ArrowRight className="w-4 h-4" />
-                    </Button>
-                </div>
-            </CardHeader>
+  const greeting = useGreeting()
 
-            <CardContent className="space-y-6">
-                {/* Key Metrics */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="p-3 rounded-lg bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800">
-                        <p className="text-sm text-green-600 dark:text-green-400">ETL Speed</p>
-                        <p className="text-2xl font-bold text-green-700 dark:text-green-300">99.9%</p>
-                        <p className="text-xs text-green-600 dark:text-green-400">Faster processing</p>
-                    </div>
-                    <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
-                        <p className="text-sm text-blue-600 dark:text-blue-400">Type Safety</p>
-                        <p className="text-2xl font-bold text-blue-700 dark:text-blue-300">100%</p>
-                        <p className="text-xs text-blue-600 dark:text-blue-400">End-to-end</p>
-                    </div>
-                    <div className="p-3 rounded-lg bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800">
-                        <p className="text-sm text-purple-600 dark:text-purple-400">AI Accuracy</p>
-                        <p className="text-2xl font-bold text-purple-700 dark:text-purple-300">94%</p>
-                        <p className="text-xs text-purple-600 dark:text-purple-400">Summarization</p>
-                    </div>
-                    <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800">
-                        <p className="text-sm text-amber-600 dark:text-amber-400">Uptime</p>
-                        <p className="text-2xl font-bold text-amber-700 dark:text-amber-300">99.99%</p>
-                        <p className="text-xs text-amber-600 dark:text-amber-400">On Vercel</p>
-                    </div>
-                </div>
+  return (
+    <div className="space-y-8">
+      {/* Hero */}
+      <Card className="relative overflow-hidden rounded-3xl border-border/60 py-0 shadow-lg shadow-primary/5">
+        {/* soft pastel blobs */}
+        <div aria-hidden className="pointer-events-none absolute -top-24 -right-16 size-72 rounded-full bg-primary/20 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-28 left-1/3 size-72 rounded-full bg-pink-300/20 blur-3xl dark:bg-pink-500/10" />
+        <div aria-hidden className="pointer-events-none absolute -top-20 -left-20 size-56 rounded-full bg-sky-300/20 blur-3xl dark:bg-sky-500/10" />
 
-                {/* Tech Stack Grid */}
-                <div className="space-y-3">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
-                        <Server className="w-5 h-5" />
-                        Technology Stack
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {Object.entries(techStack).map(([key, tech]) => {
-                            const Icon = tech.icon;
-                            return (
-                                <div
-                                    key={key}
-                                    className="group relative p-4 rounded-lg border bg-white dark:bg-slate-950 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                                >
-                                    <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} opacity-0 group-hover:opacity-5 rounded-lg transition-opacity`} />
-                                    <div className="relative space-y-2">
-                                        <div className={`inline-flex p-2 rounded-lg bg-gradient-to-r ${tech.color} bg-opacity-10`}>
-                                            <Icon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-                                        </div>
-                                        <h4 className="font-semibold text-sm">{tech.name}</h4>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                            {tech.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+        <div className="relative grid items-center gap-8 p-6 sm:p-10 md:grid-cols-[1fr_auto]">
+          <div className="space-y-5">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center rounded-full border bg-background/70 px-3 py-1 text-sm font-medium backdrop-blur">
+                {greeting}
+              </span>
+              <Badge className="rounded-full bg-primary/10 text-primary hover:bg-primary/15">
+                <Sparkles className="size-3" />
+                Production ready
+              </Badge>
+            </div>
 
-                {/* Features Highlight */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                    <div className="p-4 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800">
-                        <h4 className="font-semibold flex items-center gap-2 mb-2">
-                            <CheckCircle className="w-4 h-4 text-blue-600" />
-                            End-to-End Type Safety
-                        </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Full-stack TypeScript with automatic type inference from database to UI
-                        </p>
-                    </div>
-                    <div className="p-4 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 border border-purple-200 dark:border-purple-800">
-                        <h4 className="font-semibold flex items-center gap-2 mb-2">
-                            <Server className="w-4 h-4 text-purple-600" />
-                            Server Functions (RPC)
-                        </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Call server code directly from client components with full type safety
-                        </p>
-                    </div>
-                </div>
+            <div className="space-y-3">
+              <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl md:text-5xl">
+                Welcome to your <span className="text-primary">dashboard</span>
+              </h1>
+              <p className="max-w-[60ch] text-base text-muted-foreground sm:text-lg">
+                Turn any URL into clean, AI-generated summaries. A type-safe content pipeline
+                built with TanStack Start, from scrape to insight.
+              </p>
+            </div>
 
-                {/* Quick Actions */}
-                <div className="hidden flex-wrap gap-3 pt-4">
-                    <Button className="gap-2 bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300">
-                        <Zap className="w-4 h-4" />
-                        Create New Pipeline
-                    </Button>
-                    <Button variant="outline" className="gap-2">
-                        <Brain className="w-4 h-4" />
-                        Test AI Summarization
-                    </Button>
-                    <Button variant="ghost" className="gap-2">
-                        <Database className="w-4 h-4" />
-                        View Data Sources
-                    </Button>
-                </div>
-            </CardContent>
-        </Card>
-    );
+            <div className="flex flex-wrap gap-3 pt-1">
+              <Link to="/dashboard" className={cn(buttonVariants({ size: 'lg' }), 'rounded-full px-5')}>
+                Open dashboard
+                <ArrowRight className="size-4" />
+              </Link>
+              <Link
+                to="/dashboard/import"
+                className={cn(buttonVariants({ size: 'lg', variant: 'outline' }), 'rounded-full bg-background/70 px-5')}
+              >
+                <Link2 className="size-4" />
+                Import a URL
+              </Link>
+            </div>
+          </div>
+
+          <Mascot className="mx-auto size-36 motion-safe:animate-float sm:size-44 md:size-52" />
+        </div>
+      </Card>
+
+      {/* Highlights */}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+        {highlights.map(({ icon: Icon, value, label, tint }) => (
+          <div
+            key={label}
+            className="flex items-center gap-3 rounded-2xl border bg-card p-4 shadow-sm"
+          >
+            <span className={cn('grid size-10 shrink-0 place-items-center rounded-xl', tint)}>
+              <Icon className="size-5" />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate text-lg font-semibold leading-tight">{value}</p>
+              <p className="truncate text-xs text-muted-foreground">{label}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Tech stack */}
+      <section className="space-y-4">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">What's inside 🧩</h2>
+            <p className="text-sm text-muted-foreground">The tools that power this project.</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          {Object.entries(techStack).map(([key, tech]) => {
+            const Icon = tech.icon
+            return (
+              <div
+                key={key}
+                className="group rounded-2xl border bg-card p-4 transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 motion-safe:hover:-translate-y-0.5"
+              >
+                <span
+                  className={cn(
+                    'mb-3 grid size-10 place-items-center rounded-xl transition-transform duration-300 motion-safe:group-hover:rotate-6 motion-safe:group-hover:scale-110',
+                    tech.tint,
+                  )}
+                >
+                  <Icon className="size-5" />
+                </span>
+                <h3 className="text-sm font-semibold">{tech.name}</h3>
+                <p className="mt-0.5 text-xs text-muted-foreground">{tech.description}</p>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="flex gap-4 rounded-2xl border border-sky-200/70 bg-sky-50/70 p-5 dark:border-sky-500/20 dark:bg-sky-500/5">
+          <span className={cn('grid size-10 shrink-0 place-items-center rounded-xl', techStack.ui.tint)}>
+            <CheckCircle2 className="size-5" />
+          </span>
+          <div>
+            <h3 className="font-semibold">End-to-end type safety</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Full-stack TypeScript with types inferred from the database all the way to the UI.
+            </p>
+          </div>
+        </div>
+        <div className="flex gap-4 rounded-2xl border border-violet-200/70 bg-violet-50/70 p-5 dark:border-violet-500/20 dark:bg-violet-500/5">
+          <span className={cn('grid size-10 shrink-0 place-items-center rounded-xl', techStack.forms.tint)}>
+            <Server className="size-5" />
+          </span>
+          <div>
+            <h3 className="font-semibold">Server functions (RPC)</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Call server code straight from client components, fully typed.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
 }

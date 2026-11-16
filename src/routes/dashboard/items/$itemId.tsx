@@ -1,33 +1,26 @@
+import { useCompletion } from '@ai-sdk/react'
+import { Link, createFileRoute, useRouter } from '@tanstack/react-router'
+import { ArrowLeft, Calendar, ChevronDown, Clock, ExternalLink, Loader2, Sparkles, User } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 import { MessageResponse } from '@/components/ai-elements/message'
 import { Badge } from '@/components/ui/badge'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { getItemByIdFn, saveSummaryAndGenerateTagsFn } from '@/data/items'
+import { seo } from '@/lib/seo'
 import { cn } from '@/lib/utils'
-import { useCompletion } from '@ai-sdk/react'
-import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
-import { ArrowLeft, Calendar, ChevronDown, Clock, ExternalLink, Loader2, Sparkles, User } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
 
 export const Route = createFileRoute('/dashboard/items/$itemId')({
     component: RouteComponent,
     loader: ({ params }) => getItemByIdFn({ data: { id: params.itemId } }),
     head: ({ loaderData }) => ({
-        meta: [
-            {
-                title: loaderData?.title ?? "Item Details"
-            },
-            {
-                property: 'og:image',
-                content: loaderData?.ogImage ?? "adadfastw4tsgs"
-            },
-            {
-                name: 'twitter:title',
-                content: loaderData?.title ?? 'Item Details'
-            }
-        ]
+        meta: seo({
+            title: loaderData?.title ?? 'Item details',
+            description: loaderData?.summary?.slice(0, 160) ?? undefined,
+            image: loaderData?.ogImage,
+        }),
     })
 })
 

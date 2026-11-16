@@ -1,18 +1,20 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/web/navbar";
 import { WelcomeCard } from "@/components/welcome-card";
-import { createFileRoute } from "@tanstack/react-router";
+import { seo } from "@/lib/seo";
 
-export const Route = createFileRoute("/")({ component: App });
+export const Route = createFileRoute("/")({
+  component: App,
+  head: () => ({ meta: seo() }),
+});
 
 function App() {
   return (
-    <>
+    <div className="min-h-svh bg-gradient-to-b from-primary/5 via-transparent to-transparent">
       <Navbar />
-      {/* <ComponentExample /> */}
-      <div className="container mx-auto p-4 md:p-6 space-y-6">
+      <main className="mx-auto max-w-6xl px-4 py-8 md:py-12">
         <WelcomeCard />
-
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

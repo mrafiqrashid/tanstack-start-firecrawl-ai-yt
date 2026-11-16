@@ -1,19 +1,22 @@
+import { useForm } from '@tanstack/react-form'
+import { createFileRoute } from '@tanstack/react-router'
+import { Loader2, Search, Sparkles } from 'lucide-react'
+import { useState, useTransition } from 'react'
+import { toast } from 'sonner'
+import type { SearchResultWeb } from '@mendable/firecrawl-js'
+import type { BulkScrapeProgress} from '@/data/items';
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Progress } from '@/components/ui/progress'
-import { BulkScrapeProgress, bulkScrapeUrlsFn, searchWebFn } from '@/data/items'
+import { bulkScrapeUrlsFn, searchWebFn } from '@/data/items'
 import { searchSchema } from '@/schemas/import'
-import { SearchResultWeb } from '@mendable/firecrawl-js'
-import { useForm } from '@tanstack/react-form'
-import { createFileRoute } from '@tanstack/react-router'
-import { Loader2, Search, Sparkles } from 'lucide-react'
-import { useState, useTransition } from 'react'
-import { toast } from 'sonner'
+import { seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/dashboard/discover')({
+  head: () => ({ meta: seo({ title: 'Discover', description: 'Search the web and save the best results to Recall.' }) }),
   component: RouteComponent,
 })
 
